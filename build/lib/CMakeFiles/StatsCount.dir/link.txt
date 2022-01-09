@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC   -Wl,-rpath-link,  -Wl,-O3 -Wl,--gc-sections -shared  -o StatsCount.so CMakeFiles/StatsCount.dir/StatsCount.cpp.o   -L/home/khaled/llvm-cuda-install/lib  -Wl,-rpath,"\$ORIGIN/../lib:/home/khaled/llvm-cuda-install/lib" 
