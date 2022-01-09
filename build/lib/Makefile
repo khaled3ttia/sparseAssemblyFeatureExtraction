@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/khaled/Documents/khaled/sparse_construction/statscounter
+CMAKE_SOURCE_DIR = /home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/khaled/Documents/khaled/sparse_construction/statscounter/build
+CMAKE_BINARY_DIR = /home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -126,14 +126,14 @@ install/strip/fast: preinstall/fast
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/khaled/Documents/khaled/sparse_construction/statscounter/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/khaled/Documents/khaled/sparse_construction/statscounter/build/CMakeFiles /home/khaled/Documents/khaled/sparse_construction/statscounter/build/lib/CMakeFiles/progress.marks
-	cd /home/khaled/Documents/khaled/sparse_construction/statscounter/build && $(MAKE) -f CMakeFiles/Makefile2 lib/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/khaled/Documents/khaled/sparse_construction/statscounter/build/CMakeFiles 0
+	cd /home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction/build/CMakeFiles /home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction/build/lib/CMakeFiles/progress.marks
+	cd /home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction/build && $(MAKE) -f CMakeFiles/Makefile2 lib/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/khaled/Documents/khaled/sparse_construction/statscounter/build && $(MAKE) -f CMakeFiles/Makefile2 lib/clean
+	cd /home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction/build && $(MAKE) -f CMakeFiles/Makefile2 lib/clean
 .PHONY : clean
 
 # The main clean target
@@ -143,22 +143,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/khaled/Documents/khaled/sparse_construction/statscounter/build && $(MAKE) -f CMakeFiles/Makefile2 lib/preinstall
+	cd /home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction/build && $(MAKE) -f CMakeFiles/Makefile2 lib/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/khaled/Documents/khaled/sparse_construction/statscounter/build && $(MAKE) -f CMakeFiles/Makefile2 lib/preinstall
+	cd /home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction/build && $(MAKE) -f CMakeFiles/Makefile2 lib/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/khaled/Documents/khaled/sparse_construction/statscounter/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 lib/CMakeFiles/install-StatsCount-stripped.dir/rule:
-	cd /home/khaled/Documents/khaled/sparse_construction/statscounter/build && $(MAKE) -f CMakeFiles/Makefile2 lib/CMakeFiles/install-StatsCount-stripped.dir/rule
+	cd /home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction/build && $(MAKE) -f CMakeFiles/Makefile2 lib/CMakeFiles/install-StatsCount-stripped.dir/rule
 .PHONY : lib/CMakeFiles/install-StatsCount-stripped.dir/rule
 
 # Convenience name for target.
@@ -168,12 +168,12 @@ install-StatsCount-stripped: lib/CMakeFiles/install-StatsCount-stripped.dir/rule
 
 # fast build rule for target.
 install-StatsCount-stripped/fast:
-	cd /home/khaled/Documents/khaled/sparse_construction/statscounter/build && $(MAKE) -f lib/CMakeFiles/install-StatsCount-stripped.dir/build.make lib/CMakeFiles/install-StatsCount-stripped.dir/build
+	cd /home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction/build && $(MAKE) -f lib/CMakeFiles/install-StatsCount-stripped.dir/build.make lib/CMakeFiles/install-StatsCount-stripped.dir/build
 .PHONY : install-StatsCount-stripped/fast
 
 # Convenience name for target.
 lib/CMakeFiles/install-StatsCount.dir/rule:
-	cd /home/khaled/Documents/khaled/sparse_construction/statscounter/build && $(MAKE) -f CMakeFiles/Makefile2 lib/CMakeFiles/install-StatsCount.dir/rule
+	cd /home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction/build && $(MAKE) -f CMakeFiles/Makefile2 lib/CMakeFiles/install-StatsCount.dir/rule
 .PHONY : lib/CMakeFiles/install-StatsCount.dir/rule
 
 # Convenience name for target.
@@ -183,12 +183,12 @@ install-StatsCount: lib/CMakeFiles/install-StatsCount.dir/rule
 
 # fast build rule for target.
 install-StatsCount/fast:
-	cd /home/khaled/Documents/khaled/sparse_construction/statscounter/build && $(MAKE) -f lib/CMakeFiles/install-StatsCount.dir/build.make lib/CMakeFiles/install-StatsCount.dir/build
+	cd /home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction/build && $(MAKE) -f lib/CMakeFiles/install-StatsCount.dir/build.make lib/CMakeFiles/install-StatsCount.dir/build
 .PHONY : install-StatsCount/fast
 
 # Convenience name for target.
 lib/CMakeFiles/StatsCount.dir/rule:
-	cd /home/khaled/Documents/khaled/sparse_construction/statscounter/build && $(MAKE) -f CMakeFiles/Makefile2 lib/CMakeFiles/StatsCount.dir/rule
+	cd /home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction/build && $(MAKE) -f CMakeFiles/Makefile2 lib/CMakeFiles/StatsCount.dir/rule
 .PHONY : lib/CMakeFiles/StatsCount.dir/rule
 
 # Convenience name for target.
@@ -198,7 +198,7 @@ StatsCount: lib/CMakeFiles/StatsCount.dir/rule
 
 # fast build rule for target.
 StatsCount/fast:
-	cd /home/khaled/Documents/khaled/sparse_construction/statscounter/build && $(MAKE) -f lib/CMakeFiles/StatsCount.dir/build.make lib/CMakeFiles/StatsCount.dir/build
+	cd /home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction/build && $(MAKE) -f lib/CMakeFiles/StatsCount.dir/build.make lib/CMakeFiles/StatsCount.dir/build
 .PHONY : StatsCount/fast
 
 StatsCount.o: StatsCount.cpp.o
@@ -207,7 +207,7 @@ StatsCount.o: StatsCount.cpp.o
 
 # target to build an object file
 StatsCount.cpp.o:
-	cd /home/khaled/Documents/khaled/sparse_construction/statscounter/build && $(MAKE) -f lib/CMakeFiles/StatsCount.dir/build.make lib/CMakeFiles/StatsCount.dir/StatsCount.cpp.o
+	cd /home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction/build && $(MAKE) -f lib/CMakeFiles/StatsCount.dir/build.make lib/CMakeFiles/StatsCount.dir/StatsCount.cpp.o
 .PHONY : StatsCount.cpp.o
 
 StatsCount.i: StatsCount.cpp.i
@@ -216,7 +216,7 @@ StatsCount.i: StatsCount.cpp.i
 
 # target to preprocess a source file
 StatsCount.cpp.i:
-	cd /home/khaled/Documents/khaled/sparse_construction/statscounter/build && $(MAKE) -f lib/CMakeFiles/StatsCount.dir/build.make lib/CMakeFiles/StatsCount.dir/StatsCount.cpp.i
+	cd /home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction/build && $(MAKE) -f lib/CMakeFiles/StatsCount.dir/build.make lib/CMakeFiles/StatsCount.dir/StatsCount.cpp.i
 .PHONY : StatsCount.cpp.i
 
 StatsCount.s: StatsCount.cpp.s
@@ -225,7 +225,7 @@ StatsCount.s: StatsCount.cpp.s
 
 # target to generate assembly for a file
 StatsCount.cpp.s:
-	cd /home/khaled/Documents/khaled/sparse_construction/statscounter/build && $(MAKE) -f lib/CMakeFiles/StatsCount.dir/build.make lib/CMakeFiles/StatsCount.dir/StatsCount.cpp.s
+	cd /home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction/build && $(MAKE) -f lib/CMakeFiles/StatsCount.dir/build.make lib/CMakeFiles/StatsCount.dir/StatsCount.cpp.s
 .PHONY : StatsCount.cpp.s
 
 # Help Target
@@ -257,6 +257,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/khaled/Documents/khaled/sparse_construction/statscounter/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

@@ -4,11 +4,28 @@
 #include "llvm/IR/CFG.h"
 #include "llvm/IR/Function.h"
 #include "llvm/Pass.h"
+#include "llvm/Support/CommandLine.h"
 #include "llvm/Support/raw_ostream.h"
+
 #include <iostream>
 #include <unordered_map>
 #include <vector>
 using namespace llvm;
+
+static cl::opt<bool>
+    Triangular("tri", cl::desc("Enable Printing Triangular Loops Count"));
+
+static cl::opt<bool>
+    ArrRef("arr-ref",
+           cl::desc("Enable Counting Array References and Dimensionality"));
+
+static cl::opt<bool> Scalars(
+    "scalars",
+    cl::desc("Enable Counting All Scalar References inside loop nests"));
+
+static cl::opt<bool>
+    ArrIdx("arr-idx", cl::desc("Enable Printing Array Index Expressions"));
+
 namespace {
 
 struct StatsCount : public FunctionPass {
@@ -82,10 +99,12 @@ struct StatsCount : public FunctionPass {
               ++(refMap[arrayName].first);
             }
           }
-
-          int gepNumOperands = Ip->getNumOperands();
-          errs() << "array: " << arrayName << " , index: " << *(Ip->getOperand(gepNumOperands-1)) << "\n";
-
+          if (ArrIdx) {
+            int gepNumOperands = Ip->getNumOperands();
+            errs() << "array: " << arrayName
+                   << " , index: " << *(Ip->getOperand(gepNumOperands - 1))
+                   << "\n";
+          }
           /*
           // GEP operands
           for (int k = 0; k < Ip->getNumOperands(); ++k) {
@@ -101,21 +120,23 @@ struct StatsCount : public FunctionPass {
           "\n";
           */
         } else {
-          int numOperands = Ip->getNumOperands();
-          for (int i = 0; i < numOperands; ++i) {
-            Value *op = Ip->getOperand(i);
-            Type *opTy = op->getType();
+          if (Scalars) {
+            int numOperands = Ip->getNumOperands();
+            for (int i = 0; i < numOperands; ++i) {
+              Value *op = Ip->getOperand(i);
+              Type *opTy = op->getType();
 
-            if (!(opTy->isLabelTy() || opTy->isArrayTy() ||
-                  opTy->isPointerTy() || opTy->isFunctionTy() ||
-                  opTy->isMetadataTy())) {
-              // if (!isa<label>(op){
+              if (!(opTy->isLabelTy() || opTy->isArrayTy() ||
+                    opTy->isPointerTy() || opTy->isFunctionTy() ||
+                    opTy->isMetadataTy())) {
+                // if (!isa<label>(op){
 
-              errs() << "Scalar " << i << (*(Ip->getOperand(i))).getName()
-                     << " : ";
-              errs() << *(op->getType()) << "\n";
+                errs() << "Scalar " << i << (*(Ip->getOperand(i))).getName()
+                       << " : ";
+                errs() << *(op->getType()) << "\n";
+              }
+              //  }
             }
-            //  }
           }
         }
       }
@@ -365,8 +386,10 @@ struct StatsCount : public FunctionPass {
       std::unordered_map<std::string, std::pair<int, std::string>> refMap;
 
       int loopArrRefs = findArrayRefs(*i, refMap);
-      errs() << "Number of Array References: " << loopArrRefs << "\n";
-      printMap(refMap);
+      if (ArrRef) {
+        errs() << "Number of Array References: " << loopArrRefs << "\n";
+        printMap(refMap);
+      }
       analyzeLoopBounds(*i, se, triangularLoops);
 
       Loop::iterator j, f;
@@ -451,7 +474,9 @@ struct StatsCount : public FunctionPass {
     errs() << "Total Loops: " << totalLoops << "\n";
     errs() << "Disjoint Loops Found: " << loopCounter << "\n";
     errs() << "Nested Loops: " << nestedLoops << "\n";
-    errs() << "Triangular Loops: " << triangularLoops << "\n";
+
+    if (Triangular)
+      errs() << "Triangular Loops: " << triangularLoops << "\n";
     errs() << "Rectangular Loops: " << nestedLoops - triangularLoops << "\n";
     errs() << "Average Loop Depth: " << avgDepth / loopCounter << "\n";
     errs() << "==============================================\n";

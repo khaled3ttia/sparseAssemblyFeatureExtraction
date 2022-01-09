@@ -1,4 +1,4 @@
-# Install script for directory: /home/khaled/Documents/khaled/sparse_construction/statscounter/lib
+# Install script for directory: /home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction/lib
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -38,7 +38,7 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xStatsCountx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE MODULE FILES "/home/khaled/Documents/khaled/sparse_construction/statscounter/build/lib/StatsCount.so")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE MODULE FILES "/home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction/build/lib/StatsCount.so")
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/StatsCount.so" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/StatsCount.so")
     if(CMAKE_INSTALL_DO_STRIP)

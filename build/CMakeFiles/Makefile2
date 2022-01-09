@@ -44,10 +44,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/khaled/Documents/khaled/sparse_construction/statscounter
+CMAKE_SOURCE_DIR = /home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/khaled/Documents/khaled/sparse_construction/statscounter/build
+CMAKE_BINARY_DIR = /home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction/build
 
 #=============================================================================
 # Directory level rules for the build root directory
@@ -97,14 +97,14 @@ lib/clean: lib/CMakeFiles/StatsCount.dir/clean
 CMakeFiles/acc_gen.dir/all:
 	$(MAKE) -f CMakeFiles/acc_gen.dir/build.make CMakeFiles/acc_gen.dir/depend
 	$(MAKE) -f CMakeFiles/acc_gen.dir/build.make CMakeFiles/acc_gen.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/khaled/Documents/khaled/sparse_construction/statscounter/build/CMakeFiles --progress-num= "Built target acc_gen"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction/build/CMakeFiles --progress-num= "Built target acc_gen"
 .PHONY : CMakeFiles/acc_gen.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/acc_gen.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/khaled/Documents/khaled/sparse_construction/statscounter/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction/build/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/acc_gen.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/khaled/Documents/khaled/sparse_construction/statscounter/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction/build/CMakeFiles 0
 .PHONY : CMakeFiles/acc_gen.dir/rule
 
 # Convenience name for target.
@@ -124,14 +124,14 @@ CMakeFiles/acc_gen.dir/clean:
 CMakeFiles/omp_gen.dir/all:
 	$(MAKE) -f CMakeFiles/omp_gen.dir/build.make CMakeFiles/omp_gen.dir/depend
 	$(MAKE) -f CMakeFiles/omp_gen.dir/build.make CMakeFiles/omp_gen.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/khaled/Documents/khaled/sparse_construction/statscounter/build/CMakeFiles --progress-num= "Built target omp_gen"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction/build/CMakeFiles --progress-num= "Built target omp_gen"
 .PHONY : CMakeFiles/omp_gen.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/omp_gen.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/khaled/Documents/khaled/sparse_construction/statscounter/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction/build/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/omp_gen.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/khaled/Documents/khaled/sparse_construction/statscounter/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction/build/CMakeFiles 0
 .PHONY : CMakeFiles/omp_gen.dir/rule
 
 # Convenience name for target.
@@ -151,14 +151,14 @@ CMakeFiles/omp_gen.dir/clean:
 CMakeFiles/intrinsics_gen.dir/all:
 	$(MAKE) -f CMakeFiles/intrinsics_gen.dir/build.make CMakeFiles/intrinsics_gen.dir/depend
 	$(MAKE) -f CMakeFiles/intrinsics_gen.dir/build.make CMakeFiles/intrinsics_gen.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/khaled/Documents/khaled/sparse_construction/statscounter/build/CMakeFiles --progress-num= "Built target intrinsics_gen"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction/build/CMakeFiles --progress-num= "Built target intrinsics_gen"
 .PHONY : CMakeFiles/intrinsics_gen.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/intrinsics_gen.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/khaled/Documents/khaled/sparse_construction/statscounter/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction/build/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/intrinsics_gen.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/khaled/Documents/khaled/sparse_construction/statscounter/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction/build/CMakeFiles 0
 .PHONY : CMakeFiles/intrinsics_gen.dir/rule
 
 # Convenience name for target.
@@ -178,14 +178,14 @@ CMakeFiles/intrinsics_gen.dir/clean:
 lib/CMakeFiles/install-StatsCount-stripped.dir/all: lib/CMakeFiles/StatsCount.dir/all
 	$(MAKE) -f lib/CMakeFiles/install-StatsCount-stripped.dir/build.make lib/CMakeFiles/install-StatsCount-stripped.dir/depend
 	$(MAKE) -f lib/CMakeFiles/install-StatsCount-stripped.dir/build.make lib/CMakeFiles/install-StatsCount-stripped.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/khaled/Documents/khaled/sparse_construction/statscounter/build/CMakeFiles --progress-num= "Built target install-StatsCount-stripped"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction/build/CMakeFiles --progress-num= "Built target install-StatsCount-stripped"
 .PHONY : lib/CMakeFiles/install-StatsCount-stripped.dir/all
 
 # Build rule for subdir invocation for target.
 lib/CMakeFiles/install-StatsCount-stripped.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/khaled/Documents/khaled/sparse_construction/statscounter/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction/build/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 lib/CMakeFiles/install-StatsCount-stripped.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/khaled/Documents/khaled/sparse_construction/statscounter/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction/build/CMakeFiles 0
 .PHONY : lib/CMakeFiles/install-StatsCount-stripped.dir/rule
 
 # Convenience name for target.
@@ -205,14 +205,14 @@ lib/CMakeFiles/install-StatsCount-stripped.dir/clean:
 lib/CMakeFiles/install-StatsCount.dir/all: lib/CMakeFiles/StatsCount.dir/all
 	$(MAKE) -f lib/CMakeFiles/install-StatsCount.dir/build.make lib/CMakeFiles/install-StatsCount.dir/depend
 	$(MAKE) -f lib/CMakeFiles/install-StatsCount.dir/build.make lib/CMakeFiles/install-StatsCount.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/khaled/Documents/khaled/sparse_construction/statscounter/build/CMakeFiles --progress-num= "Built target install-StatsCount"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction/build/CMakeFiles --progress-num= "Built target install-StatsCount"
 .PHONY : lib/CMakeFiles/install-StatsCount.dir/all
 
 # Build rule for subdir invocation for target.
 lib/CMakeFiles/install-StatsCount.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/khaled/Documents/khaled/sparse_construction/statscounter/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction/build/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 lib/CMakeFiles/install-StatsCount.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/khaled/Documents/khaled/sparse_construction/statscounter/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction/build/CMakeFiles 0
 .PHONY : lib/CMakeFiles/install-StatsCount.dir/rule
 
 # Convenience name for target.
@@ -232,14 +232,14 @@ lib/CMakeFiles/install-StatsCount.dir/clean:
 lib/CMakeFiles/StatsCount.dir/all:
 	$(MAKE) -f lib/CMakeFiles/StatsCount.dir/build.make lib/CMakeFiles/StatsCount.dir/depend
 	$(MAKE) -f lib/CMakeFiles/StatsCount.dir/build.make lib/CMakeFiles/StatsCount.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/khaled/Documents/khaled/sparse_construction/statscounter/build/CMakeFiles --progress-num=1,2 "Built target StatsCount"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction/build/CMakeFiles --progress-num=1,2 "Built target StatsCount"
 .PHONY : lib/CMakeFiles/StatsCount.dir/all
 
 # Build rule for subdir invocation for target.
 lib/CMakeFiles/StatsCount.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/khaled/Documents/khaled/sparse_construction/statscounter/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction/build/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 lib/CMakeFiles/StatsCount.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/khaled/Documents/khaled/sparse_construction/statscounter/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction/build/CMakeFiles 0
 .PHONY : lib/CMakeFiles/StatsCount.dir/rule
 
 # Convenience name for target.

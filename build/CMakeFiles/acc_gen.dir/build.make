@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/khaled/Documents/khaled/sparse_construction/statscounter
+CMAKE_SOURCE_DIR = /home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/khaled/Documents/khaled/sparse_construction/statscounter/build
+CMAKE_BINARY_DIR = /home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction/build
 
 # Utility rule file for acc_gen.
 
@@ -67,6 +67,6 @@ CMakeFiles/acc_gen.dir/clean:
 .PHONY : CMakeFiles/acc_gen.dir/clean
 
 CMakeFiles/acc_gen.dir/depend:
-	cd /home/khaled/Documents/khaled/sparse_construction/statscounter/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/khaled/Documents/khaled/sparse_construction/statscounter /home/khaled/Documents/khaled/sparse_construction/statscounter /home/khaled/Documents/khaled/sparse_construction/statscounter/build /home/khaled/Documents/khaled/sparse_construction/statscounter/build /home/khaled/Documents/khaled/sparse_construction/statscounter/build/CMakeFiles/acc_gen.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction /home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction /home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction/build /home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction/build /home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction/build/CMakeFiles/acc_gen.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/acc_gen.dir/depend
 

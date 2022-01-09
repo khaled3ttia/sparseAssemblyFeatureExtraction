@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/khaled/Documents/khaled/sparse_construction/statscounter
+CMAKE_SOURCE_DIR = /home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/khaled/Documents/khaled/sparse_construction/statscounter/build
+CMAKE_BINARY_DIR = /home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -126,9 +126,9 @@ install/strip/fast: preinstall/fast
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/khaled/Documents/khaled/sparse_construction/statscounter/build/CMakeFiles /home/khaled/Documents/khaled/sparse_construction/statscounter/build/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction/build/CMakeFiles /home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction/build/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/khaled/Documents/khaled/sparse_construction/statscounter/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target

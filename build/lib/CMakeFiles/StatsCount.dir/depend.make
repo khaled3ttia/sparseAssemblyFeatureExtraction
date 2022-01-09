@@ -114,6 +114,7 @@ lib/CMakeFiles/StatsCount.dir/StatsCount.cpp.o: /home/khaled/llvm-cuda-install/i
 lib/CMakeFiles/StatsCount.dir/StatsCount.cpp.o: /home/khaled/llvm-cuda-install/include/llvm/Support/CBindingWrapping.h
 lib/CMakeFiles/StatsCount.dir/StatsCount.cpp.o: /home/khaled/llvm-cuda-install/include/llvm/Support/Casting.h
 lib/CMakeFiles/StatsCount.dir/StatsCount.cpp.o: /home/khaled/llvm-cuda-install/include/llvm/Support/CodeGen.h
+lib/CMakeFiles/StatsCount.dir/StatsCount.cpp.o: /home/khaled/llvm-cuda-install/include/llvm/Support/CommandLine.h
 lib/CMakeFiles/StatsCount.dir/StatsCount.cpp.o: /home/khaled/llvm-cuda-install/include/llvm/Support/Compiler.h
 lib/CMakeFiles/StatsCount.dir/StatsCount.cpp.o: /home/khaled/llvm-cuda-install/include/llvm/Support/DataTypes.h
 lib/CMakeFiles/StatsCount.dir/StatsCount.cpp.o: /home/khaled/llvm-cuda-install/include/llvm/Support/Debug.h
@@ -123,6 +124,7 @@ lib/CMakeFiles/StatsCount.dir/StatsCount.cpp.o: /home/khaled/llvm-cuda-install/i
 lib/CMakeFiles/StatsCount.dir/StatsCount.cpp.o: /home/khaled/llvm-cuda-install/include/llvm/Support/ErrorOr.h
 lib/CMakeFiles/StatsCount.dir/StatsCount.cpp.o: /home/khaled/llvm-cuda-install/include/llvm/Support/Format.h
 lib/CMakeFiles/StatsCount.dir/StatsCount.cpp.o: /home/khaled/llvm-cuda-install/include/llvm/Support/MD5.h
+lib/CMakeFiles/StatsCount.dir/StatsCount.cpp.o: /home/khaled/llvm-cuda-install/include/llvm/Support/ManagedStatic.h
 lib/CMakeFiles/StatsCount.dir/StatsCount.cpp.o: /home/khaled/llvm-cuda-install/include/llvm/Support/MathExtras.h
 lib/CMakeFiles/StatsCount.dir/StatsCount.cpp.o: /home/khaled/llvm-cuda-install/include/llvm/Support/MemAlloc.h
 lib/CMakeFiles/StatsCount.dir/StatsCount.cpp.o: /home/khaled/llvm-cuda-install/include/llvm/Support/Mutex.h

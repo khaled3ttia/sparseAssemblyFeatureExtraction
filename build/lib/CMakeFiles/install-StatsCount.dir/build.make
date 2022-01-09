@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/khaled/Documents/khaled/sparse_construction/statscounter
+CMAKE_SOURCE_DIR = /home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/khaled/Documents/khaled/sparse_construction/statscounter/build
+CMAKE_BINARY_DIR = /home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction/build
 
 # Utility rule file for install-StatsCount.
 
@@ -54,7 +54,7 @@ CMAKE_BINARY_DIR = /home/khaled/Documents/khaled/sparse_construction/statscounte
 include lib/CMakeFiles/install-StatsCount.dir/progress.make
 
 lib/CMakeFiles/install-StatsCount:
-	cd /home/khaled/Documents/khaled/sparse_construction/statscounter/build/lib && /usr/bin/cmake -DCMAKE_INSTALL_COMPONENT="StatsCount" -P /home/khaled/Documents/khaled/sparse_construction/statscounter/build/cmake_install.cmake
+	cd /home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction/build/lib && /usr/bin/cmake -DCMAKE_INSTALL_COMPONENT="StatsCount" -P /home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction/build/cmake_install.cmake
 
 install-StatsCount: lib/CMakeFiles/install-StatsCount
 install-StatsCount: lib/CMakeFiles/install-StatsCount.dir/build.make
@@ -67,10 +67,10 @@ lib/CMakeFiles/install-StatsCount.dir/build: install-StatsCount
 .PHONY : lib/CMakeFiles/install-StatsCount.dir/build
 
 lib/CMakeFiles/install-StatsCount.dir/clean:
-	cd /home/khaled/Documents/khaled/sparse_construction/statscounter/build/lib && $(CMAKE_COMMAND) -P CMakeFiles/install-StatsCount.dir/cmake_clean.cmake
+	cd /home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction/build/lib && $(CMAKE_COMMAND) -P CMakeFiles/install-StatsCount.dir/cmake_clean.cmake
 .PHONY : lib/CMakeFiles/install-StatsCount.dir/clean
 
 lib/CMakeFiles/install-StatsCount.dir/depend:
-	cd /home/khaled/Documents/khaled/sparse_construction/statscounter/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/khaled/Documents/khaled/sparse_construction/statscounter /home/khaled/Documents/khaled/sparse_construction/statscounter/lib /home/khaled/Documents/khaled/sparse_construction/statscounter/build /home/khaled/Documents/khaled/sparse_construction/statscounter/build/lib /home/khaled/Documents/khaled/sparse_construction/statscounter/build/lib/CMakeFiles/install-StatsCount.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction /home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction/lib /home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction/build /home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction/build/lib /home/khaled/Documents/khaled/sparse_construction/sparseAssemblyFeatureExtraction/build/lib/CMakeFiles/install-StatsCount.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : lib/CMakeFiles/install-StatsCount.dir/depend
 
