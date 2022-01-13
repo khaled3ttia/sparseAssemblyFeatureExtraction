@@ -26,6 +26,8 @@ static cl::opt<bool> Scalars(
 static cl::opt<bool>
     ArrIdx("arr-idx", cl::desc("Enable Printing Array Index Expressions"));
 
+static cl::opt<bool> BinOps("bin-ops", cl::desc("Enable Printing Binary Operations Frequency"));
+
 namespace {
 
 struct StatsCount : public FunctionPass {
@@ -49,6 +51,12 @@ struct StatsCount : public FunctionPass {
     }
   }
 
+  void printOpMap(const std::unordered_map<std::string, int>& opMap){
+    errs() << "Operation: Frequency in Loop nest\n";
+    for (auto const &pair: opMap){
+        errs() << pair.first << " : " << pair.second << "\n";
+    }
+  }
   bool instInLoop(Loop *L, Instruction *I) {
 
     if (L->contains(I))
@@ -64,12 +72,24 @@ struct StatsCount : public FunctionPass {
       Loop *L,
       std::unordered_map<std::string, std::pair<int, std::string>> &refMap) {
 
+    std::unordered_map<std::string, int> binOps; 
+
     int refCount = 0;
     auto LoopBlocks = L->getBlocks();
     for (BasicBlock *BB : LoopBlocks) {
       for (Instruction &I : *BB) {
         bool usesArray = false;
         Instruction *Ip = &I;
+        if (isa<BinaryOperator>(Ip)){
+            std::string code = Ip->getOpcodeName();
+            if (binOps.find(code) == binOps.end()){
+                binOps.emplace(std::make_pair(code, 1));
+            }else{
+                ++binOps[code];
+            }
+            //errs() << "Instruction opCode is : " << Ip->getOpcodeName() << "\n";
+        }
+
         if (isa<GetElementPtrInst>(Ip)) {
 
           // Get the name of the array
@@ -141,6 +161,8 @@ struct StatsCount : public FunctionPass {
         }
       }
     }
+    if (BinOps)
+    printOpMap(binOps);
     return refCount;
   }
 
