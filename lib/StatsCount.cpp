@@ -73,14 +73,24 @@ struct StatsCount : public FunctionPass {
       Loop *L,
       std::unordered_map<std::string, std::pair<int, std::string>> &refMap) {
 
+    // A map to store binary operations names and frequency
     std::unordered_map<std::string, int> binOps;
 
+    // A counter to store the number of conditionals
+    int conditionals = 0;
+
     int refCount = 0;
+
+    // Loop latch compare instructions (used while counting conditionals)
+    ICmpInst *latchCmp = L->getLatchCmpInst();
+
     auto LoopBlocks = L->getBlocks();
     for (BasicBlock *BB : LoopBlocks) {
       for (Instruction &I : *BB) {
         bool usesArray = false;
         Instruction *Ip = &I;
+
+        // Count binary operators (add, sub, div, etc)
         if (isa<BinaryOperator>(Ip)) {
           std::string code = Ip->getOpcodeName();
           if (binOps.find(code) == binOps.end()) {
@@ -92,6 +102,21 @@ struct StatsCount : public FunctionPass {
           // "\n";
         }
 
+        // Count conditionals
+        // The idea is to find basic block terminators and check the first
+        // operand if the first operand is a compare instruction (icmp, cmp,
+        // etc.), then it is a conditional. Exclude the loop latch compare
+        // instruction
+        //
+        // TODO: exclude nested loops compare instruction as well
+        if (Ip->isTerminator()) {
+          if (isa<CmpInst>(Ip->getOperand(0))) {
+            Instruction *conditional = dyn_cast<Instruction>(Ip->getOperand(0));
+            if (conditional != latchCmp) {
+              conditionals++;
+            }
+          }
+        }
         if (isa<GetElementPtrInst>(Ip)) {
 
           // Get the name of the array
@@ -123,6 +148,19 @@ struct StatsCount : public FunctionPass {
           }
           if (ArrIdx) {
             int gepNumOperands = Ip->getNumOperands();
+
+            // TODO Analyze GEP Instruction to find the index type
+            Value *gepOperand = (Ip->getOperand(gepNumOperands - 1));
+            if (isa<Instruction>(gepOperand)) {
+              errs() << "GEP operand is an instruction \n";
+              Instruction *gepOperandI = cast<Instruction>(gepOperand);
+              int idxInstrNumOperands = gepOperandI->getNumOperands();
+              for (int i = 0; i < idxInstrNumOperands; ++i) {
+                errs() << "Operand " << i << " : "
+                       << *(gepOperandI->getOperand(i)) << "\n";
+              }
+            }
+
             errs() << "array: " << arrayName
                    << " , index: " << *(Ip->getOperand(gepNumOperands - 1))
                    << "\n";
