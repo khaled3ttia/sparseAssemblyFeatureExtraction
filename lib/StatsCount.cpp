@@ -79,6 +79,15 @@ struct StatsCount : public FunctionPass {
     // A counter to store the number of conditionals
     int conditionals = 0;
 
+
+    // An array that stores 4 values for different array access types:
+    //      [0] ==> Linear Expressions (e.g. array[i])
+    //      [1] ==> Constant Shift (e.g. array[i+1])
+    //      [2] ==> Parametric Shift (e.g. array[i+M])
+    //      [3] ==> Skewed (e.g. array[i+j]):
+    int idxExpressionCounter[4] = {0};
+
+
     int refCount = 0;
 
     // Loop latch compare instructions (used while counting conditionals)
@@ -119,6 +128,14 @@ struct StatsCount : public FunctionPass {
         }
         if (isa<GetElementPtrInst>(Ip)) {
 
+          // This variable is used to know what should be the increment for 
+          // the index expression
+          // For example: if we have a[i+1] += 5; 
+          // then we will count the index expression [i+1] twice as a constant shift
+          // expression
+          int idxExpressionCountStep = 0;
+
+
           // Get the name of the array
           std::string arrayName = (*(Ip->getOperand(0))).getName().str();
 
@@ -144,18 +161,81 @@ struct StatsCount : public FunctionPass {
               if (instInLoop(L, cast<Instruction>(U)))
                 refCount++;
               ++(refMap[arrayName].first);
+              ++idxExpressionCountStep;
             }
           }
           if (ArrIdx) {
             int gepNumOperands = Ip->getNumOperands();
+            //errs() << "GEP instruction is " << *Ip << "\n";
 
             // TODO Analyze GEP Instruction to find the index type
+            //
+            // Get the GEP index expression (operand)
             Value *gepOperand = (Ip->getOperand(gepNumOperands - 1));
+
+            // Check if the GEP expression is an instruction
             if (isa<Instruction>(gepOperand)) {
-              errs() << "GEP operand is an instruction \n";
+              //errs() << "GEP operand is an instruction \n";
+
+              // If it is, cast it to Instruction
               Instruction *gepOperandI = cast<Instruction>(gepOperand);
+
+              // Now, analyze this instruction
+              // First, get the number of operands of that instruction
+              // (it is noticed that this instruction is usually a sext 
+              // instr which has only one operand)
               int idxInstrNumOperands = gepOperandI->getNumOperands();
               for (int i = 0; i < idxInstrNumOperands; ++i) {
+                // Get the operand of the instruction (sext instr.)
+                Value *gepOperandIOperand = gepOperandI->getOperand(i);
+                
+                                // If this operand is a Phi Node, most likely it is 
+                // the induction variable of the loop (i or j, etc.)
+                if (isa<PHINode>(gepOperandIOperand)){
+                    //errs() << "Opernad Is a PHI node\n"; 
+                    // Increment Linear Expressions Counter
+                    idxExpressionCounter[0]+= idxExpressionCountStep;;
+                }
+                else if (isa<BinaryOperator>(gepOperandIOperand)){
+                    Instruction *binaryIdxInstr = cast<Instruction>(gepOperandIOperand);
+                    bool isConstantShift = false;
+                    for (int i = 0; i< binaryIdxInstr->getNumOperands(); ++i){
+
+                        if (isa<ConstantData>(binaryIdxInstr->getOperand(i))){
+                            // This is a constant shift expression
+                            isConstantShift = true;
+                            break;
+                        }
+
+                    }
+
+                    if (isConstantShift){
+
+                        // Increment the counter for the constant shift expressions
+                        idxExpressionCounter[1]+= idxExpressionCountStep;
+
+                    }else{
+
+                        // Check first if both operands are PHI Nodes
+                        Value *binOp1 = binaryIdxInstr->getOperand(0);
+                        Value *binOp2 = binaryIdxInstr->getOperand(1);
+
+                        bool phi1 = isa<PHINode>(binOp1);
+                        bool phi2 = isa<PHINode>(binOp2);
+
+                        if (phi1 && phi2){
+                            // increment skewed counter
+                            idxExpressionCounter[3]+= idxExpressionCountStep;
+                        }else {
+                            // increment parametric shift counter
+                            idxExpressionCounter[2]+= idxExpressionCountStep;
+                        }
+                    }
+
+
+                }
+
+
                 errs() << "Operand " << i << " : "
                        << *(gepOperandI->getOperand(i)) << "\n";
               }
@@ -201,11 +281,22 @@ struct StatsCount : public FunctionPass {
         }
       }
     }
+    if (ArrIdx)
+        printIdxExpSummary(idxExpressionCounter);
     if (BinOps)
       printOpMap(binOps);
     return refCount;
   }
 
+  void printIdxExpSummary(int (&idxExpressionCounter)[4]){
+
+      errs() << "\nLoop Nest Array Access Pattern Summary\n=================\n"; 
+
+      errs() << "Linear Expressions: " << idxExpressionCounter[0] << "\n";
+      errs() << "Constant Shift Expressions: " << idxExpressionCounter[1] << "\n";
+      errs() << "Parametric Shift Expressions: " << idxExpressionCounter[2] << "\n";
+      errs() << "Skewed Shift Expressions: " << idxExpressionCounter[3] << "\n\n"; 
+  }
   void countBlocksInLoop(Loop *L, unsigned nesting) {
 
     /*
