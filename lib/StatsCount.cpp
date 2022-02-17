@@ -69,6 +69,49 @@ struct StatsCount : public FunctionPass {
     return false;
   }
 
+  // A function that recursively visits binary operation instructions.
+  // Starts with one binop instr, and inspects its operands. If any of them
+  // is the result of another binop inst, it visits that other instruction and
+  // so on, until the level where the operands of the binops instruction are
+  // either constants, induction variables, or parametric vars. During these
+  // visits, it collects `localStats` as follows:
+  //        localStats[0] ==> Number of induction variables visited
+  //        localStats[1] ==> Number of constants
+  //        localStats[2] ==> Number of parametric vars
+
+  void visitBinOpInstr(Instruction *BinOpInstr, int (&localStats)[3]) {
+
+    for (int i = 0; i < BinOpInstr->getNumOperands(); ++i) {
+
+      Value *currentOperand = BinOpInstr->getOperand(i);
+
+      if (isa<BinaryOperator>(currentOperand)) {
+
+        Instruction *currentOperandAsInstr = cast<Instruction>(currentOperand);
+        visitBinOpInstr(currentOperandAsInstr, localStats);
+
+      } else {
+
+        if (isa<ConstantData>(currentOperand)) {
+
+          // Increment number of constants in the expression
+          localStats[1]++;
+        } else {
+
+          if (isa<PHINode>(currentOperand)) {
+
+            // Increment PHINodes count
+            localStats[0]++;
+          } else {
+
+            // Increment Parametric
+            localStats[2]++;
+          }
+        }
+      }
+    }
+  }
+
   int findArrayRefs(
       Loop *L,
       std::unordered_map<std::string, std::pair<int, std::string>> &refMap) {
@@ -79,14 +122,12 @@ struct StatsCount : public FunctionPass {
     // A counter to store the number of conditionals
     int conditionals = 0;
 
-
     // An array that stores 4 values for different array access types:
     //      [0] ==> Linear Expressions (e.g. array[i])
     //      [1] ==> Constant Shift (e.g. array[i+1])
     //      [2] ==> Parametric Shift (e.g. array[i+M])
     //      [3] ==> Skewed (e.g. array[i+j]):
     int idxExpressionCounter[4] = {0};
-
 
     int refCount = 0;
 
@@ -128,13 +169,12 @@ struct StatsCount : public FunctionPass {
         }
         if (isa<GetElementPtrInst>(Ip)) {
 
-          // This variable is used to know what should be the increment for 
+          // This variable is used to know what should be the increment for
           // the index expression
-          // For example: if we have a[i+1] += 5; 
-          // then we will count the index expression [i+1] twice as a constant shift
-          // expression
+          // For example: if we have a[i+1] += 5;
+          // then we will count the index expression [i+1] twice as a constant
+          // shift expression
           int idxExpressionCountStep = 0;
-
 
           // Get the name of the array
           std::string arrayName = (*(Ip->getOperand(0))).getName().str();
@@ -166,7 +206,7 @@ struct StatsCount : public FunctionPass {
           }
           if (ArrIdx) {
             int gepNumOperands = Ip->getNumOperands();
-            //errs() << "GEP instruction is " << *Ip << "\n";
+            // errs() << "GEP instruction is " << *Ip << "\n";
 
             // TODO Analyze GEP Instruction to find the index type
             //
@@ -175,66 +215,69 @@ struct StatsCount : public FunctionPass {
 
             // Check if the GEP expression is an instruction
             if (isa<Instruction>(gepOperand)) {
-              //errs() << "GEP operand is an instruction \n";
+              // errs() << "GEP operand is an instruction \n";
 
               // If it is, cast it to Instruction
               Instruction *gepOperandI = cast<Instruction>(gepOperand);
 
               // Now, analyze this instruction
               // First, get the number of operands of that instruction
-              // (it is noticed that this instruction is usually a sext 
+              // (it is noticed that this instruction is usually a sext
               // instr which has only one operand)
               int idxInstrNumOperands = gepOperandI->getNumOperands();
               for (int i = 0; i < idxInstrNumOperands; ++i) {
                 // Get the operand of the instruction (sext instr.)
                 Value *gepOperandIOperand = gepOperandI->getOperand(i);
-                
-                                // If this operand is a Phi Node, most likely it is 
+
+                // If this operand is a Phi Node, most likely it is
                 // the induction variable of the loop (i or j, etc.)
-                if (isa<PHINode>(gepOperandIOperand)){
-                    //errs() << "Opernad Is a PHI node\n"; 
-                    // Increment Linear Expressions Counter
-                    idxExpressionCounter[0]+= idxExpressionCountStep;;
+                if (isa<PHINode>(gepOperandIOperand)) {
+                  // errs() << "Opernad Is a PHI node\n";
+                  //  Increment Linear Expressions Counter
+                  idxExpressionCounter[0] += idxExpressionCountStep;
+                } else if (isa<BinaryOperator>(gepOperandIOperand)) {
+                  Instruction *binaryIdxInstr =
+                      cast<Instruction>(gepOperandIOperand);
+
+                  // This is an array which will collect local stats inside
+                  // recursive calls of visitBinOpInstr The indices store values
+                  // as follows:
+                  //      localStats[0] ==> The number of induction variables
+                  //      localStats[1] ==> The number of constants
+                  //      localStats[2] ==> The number of parametric vars
+                  int localStats[] = {0, 0, 0};
+
+                  // This is the function that visit the binary operation
+                  // instruction of the index expression and recursively visit
+                  // its operands if they're binary operations as well to
+                  // identify the index access expression
+                  //
+                  // For example, if GEP operand was %idxprom
+                  // and
+                  // %idxprom = add nsw i32 %add4, %add3 --> (1)
+                  //
+                  // This function starts by visiting instr (1), then looks at
+                  // the operands (%add4 , %add3). If either (or both) are also
+                  // binary operations, it visit each of them recursively, and
+                  // so on until we reach the last level, where the operand are
+                  // no longer values produced by other binary operators
+                  // (constants, induction variables, or parametric variables)
+                  visitBinOpInstr(binaryIdxInstr, localStats);
+
+                  // Now, parse local stats collected during the recursive calls
+                  // and reflect them into the global stats
+
+                  if (localStats[0] > 1) {
+                    idxExpressionCounter[3] += idxExpressionCountStep;
+                  }
+
+                  if (localStats[1] > 0) {
+                    idxExpressionCounter[1] += idxExpressionCountStep;
+                  }
+                  if (localStats[2] > 0) {
+                    idxExpressionCounter[2] += idxExpressionCountStep;
+                  }
                 }
-                else if (isa<BinaryOperator>(gepOperandIOperand)){
-                    Instruction *binaryIdxInstr = cast<Instruction>(gepOperandIOperand);
-                    bool isConstantShift = false;
-                    for (int i = 0; i< binaryIdxInstr->getNumOperands(); ++i){
-
-                        if (isa<ConstantData>(binaryIdxInstr->getOperand(i))){
-                            // This is a constant shift expression
-                            isConstantShift = true;
-                            break;
-                        }
-
-                    }
-
-                    if (isConstantShift){
-
-                        // Increment the counter for the constant shift expressions
-                        idxExpressionCounter[1]+= idxExpressionCountStep;
-
-                    }else{
-
-                        // Check first if both operands are PHI Nodes
-                        Value *binOp1 = binaryIdxInstr->getOperand(0);
-                        Value *binOp2 = binaryIdxInstr->getOperand(1);
-
-                        bool phi1 = isa<PHINode>(binOp1);
-                        bool phi2 = isa<PHINode>(binOp2);
-
-                        if (phi1 && phi2){
-                            // increment skewed counter
-                            idxExpressionCounter[3]+= idxExpressionCountStep;
-                        }else {
-                            // increment parametric shift counter
-                            idxExpressionCounter[2]+= idxExpressionCountStep;
-                        }
-                    }
-
-
-                }
-
 
                 errs() << "Operand " << i << " : "
                        << *(gepOperandI->getOperand(i)) << "\n";
@@ -281,21 +324,24 @@ struct StatsCount : public FunctionPass {
         }
       }
     }
+
     if (ArrIdx)
-        printIdxExpSummary(idxExpressionCounter);
+      printIdxExpSummary(idxExpressionCounter);
+
     if (BinOps)
       printOpMap(binOps);
     return refCount;
   }
 
-  void printIdxExpSummary(int (&idxExpressionCounter)[4]){
+  void printIdxExpSummary(int (&idxExpressionCounter)[4]) {
 
-      errs() << "\nLoop Nest Array Access Pattern Summary\n=================\n"; 
+    errs() << "\nLoop Nest Array Access Pattern Summary\n=================\n";
 
-      errs() << "Linear Expressions: " << idxExpressionCounter[0] << "\n";
-      errs() << "Constant Shift Expressions: " << idxExpressionCounter[1] << "\n";
-      errs() << "Parametric Shift Expressions: " << idxExpressionCounter[2] << "\n";
-      errs() << "Skewed Shift Expressions: " << idxExpressionCounter[3] << "\n\n"; 
+    errs() << "Linear Expressions: " << idxExpressionCounter[0] << "\n";
+    errs() << "Constant Shift Expressions: " << idxExpressionCounter[1] << "\n";
+    errs() << "Parametric Shift Expressions: " << idxExpressionCounter[2]
+           << "\n";
+    errs() << "Skewed Shift Expressions: " << idxExpressionCounter[3] << "\n\n";
   }
   void countBlocksInLoop(Loop *L, unsigned nesting) {
 
